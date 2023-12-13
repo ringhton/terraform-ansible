@@ -1,0 +1,2 @@
+webserver_user: root
+webserver_path_to_nginx: /etc/nginx

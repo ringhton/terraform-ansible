@@ -1,0 +1,16 @@
+{# This is configuration site_2 #}
+{% extends "site1.j2" %}
+{% block upstream %}
+{% endblock %}
+{% block listen %}
+server {
+	listen 8080;
+{% endblock %}
+{% block location %}
+	location / {
+                add_header Content-Type text/html;
+                set $str "Hello, user. This is other APPSERVER!";
+                return 200 $str;
+        }
+{% endblock %}
+}

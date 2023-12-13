@@ -1,0 +1,10 @@
+- name: Install nginx on balancer_server
+  ansible.builtin.include_role:
+    name: balancer
+  when:
+    inventory_hostname == "server0"
+- name: Install nginx on app_server
+  ansible.builtin.include_role:
+    name: appserver
+  when:
+    inventory_hostname == "server1"

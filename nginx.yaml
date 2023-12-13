@@ -1,0 +1,5 @@
+- name: Install nginx on servers
+  hosts: servers
+  become: true
+  roles:
+    - choose

@@ -1,0 +1,3 @@
+worker_connections: "1234"
+gzip_status: "off"
+indexes: {"index.html"}

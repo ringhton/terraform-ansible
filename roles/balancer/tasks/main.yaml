@@ -1,0 +1,25 @@
+- name: Copy nginx.conf on server1
+  ansible.builtin.template:
+    src: templates/nginx.conf.j2
+    dest: '{{ webserver_path_to_nginx }}/nginx.conf'
+    owner: '{{ webserver_user }}'
+    group: '{{ webserver_user }}'
+    mode: '0644'
+- name: Copy templates config-files for nginx
+  ansible.builtin.template:
+    src: 'templates/site1.j2'
+    dest: '{{ webserver_path_to_nginx }}/sites-available/site-1'
+    owner: '{{ webserver_user }}'
+    group: '{{ webserver_user }}'
+    mode: '0644'
+- name: Create symlinks for config-files
+  ansible.builtin.file:
+    src: '{{ webserver_path_to_nginx }}/sites-available/site-1'
+    dest: '{{ webserver_path_to_nginx }}/sites-enabled/site-1'
+    owner: '{{ webserver_user }}'
+    group: '{{ webserver_user }}'
+    state: link
+- name: Reload configuration nginx
+  ansible.builtin.service:
+    name: nginx
+    state: reloaded

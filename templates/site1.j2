@@ -1,0 +1,22 @@
+{# This is configuration site_1 #}
+{% block upstream %}
+upstream backend {
+	server {{ hostvars['server1'].ansible_host }}:8080;
+}
+{% endblock %}
+{% block listen %}
+server {
+        listen 80;
+{% endblock %}
+{% block body %}
+	server_name {{ansible_facts.eth0.ipv4.address}};
+
+        root /var/www/html;
+	index {% for index in indexes %} {{ index }} {% endfor %};
+{% endblock %}
+{% block location %}
+	location / {
+		proxy_pass http://backend;
+	}
+{% endblock %}
+}
